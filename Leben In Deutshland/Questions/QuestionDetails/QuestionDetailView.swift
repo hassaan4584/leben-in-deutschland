@@ -14,7 +14,6 @@ struct QuestionDetailView: View {
     let questions: [Question]
     @State private var currentIndex: Int
     var viewModel: QuestionDetailViewModel
-//    @State private var selectedQuestion: Question
     @State private var selectedLanguage: String = "en"
     @State private var isSaved: Bool = false
     @State private var selectedAnswer: String? = nil // Track the selected answer
@@ -30,9 +29,7 @@ struct QuestionDetailView: View {
         self.questions = questions
         self.currentIndex = currentIndex
         self.viewModel = viewModel
-//        self.selectedQuestion = selectedQuestion
         self.selectedLanguage = selectedLanguage
-//        self.isSaved = isSaved
         self.selectedAnswer = selectedAnswer
         self.isAnswerCorrect = isAnswerCorrect
     }
@@ -112,7 +109,6 @@ struct QuestionDetailView: View {
                 Button("Previous") {
                     if currentIndex > 0 {
                         let previousIndex = currentIndex - 1
-//                        navigateToQuestion(at: previousIndex)
                         loadQuestion(at: previousIndex)
                     }
                 }
@@ -123,29 +119,24 @@ struct QuestionDetailView: View {
                 Button("Next") {
                     if currentIndex < questions.count - 1 {
                         let nextIndex = currentIndex + 1
-//                        navigateToQuestion(at: nextIndex)
                         loadQuestion(at: nextIndex)
-                        
                     }
                 }
                 .disabled(currentIndex == questions.count - 1)
             }
             
             Spacer()
+            List {
+                ForEach(0..<10) { index in
+                    Text("\(index)")
+                }
+            }
         }
         .padding()
         .navigationTitle("Question \(questions[currentIndex].num)")
     }
     
     private var translatedQuestion: Question.Translation {
-//        selectedQuestion.translation[selectedLanguage] ?? Question.Translation(
-//            question: selectedQuestion.question,
-//            a: questions[currentIndex].a,
-//            b: questions[currentIndex].b,
-//            c: questions[currentIndex].c,
-//            d: questions[currentIndex].d,
-//            context: ""
-//        )
         questions[currentIndex].translation[selectedLanguage] ?? Question.Translation(
             question: questions[currentIndex].question,
             a: questions[currentIndex].a,
@@ -158,7 +149,6 @@ struct QuestionDetailView: View {
     
     private func loadQuestion(at index: Int) {
         currentIndex = index
-//        selectedQuestion = questions[index]
         isSaved = viewModel.isQuestionSaved(questions[currentIndex])
         selectedAnswer = nil
         isAnswerCorrect = nil

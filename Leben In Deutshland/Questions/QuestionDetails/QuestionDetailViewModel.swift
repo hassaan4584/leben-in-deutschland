@@ -35,7 +35,6 @@ struct QuestionDetailViewModel {
     init(allQuestions: [Question],
          keyValueStorage: KeyValueStoring = UserDefaults.standard) {
         self.allQuestions = allQuestions
-//        self.savedQuestions = savedQuestions
         self.keyValueStorage = keyValueStorage
     }
     
