@@ -19,8 +19,10 @@ struct OptionView: View {
                 .foregroundColor(getCheckboxColor())
             Text(text)
                 .foregroundColor(getTextColor())
+                .font(.caption)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding()
+        .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
         .background(getBackgroundColor())
         .cornerRadius(8)
         
@@ -51,7 +53,7 @@ struct OptionView: View {
         if isSelected {
             return isCorrect == true ? Color.green.opacity(0.1) : Color.red.opacity(0.1)
         }
-        return Color.clear
+        return Color.gray.opacity(0.2)
     }
 }
 

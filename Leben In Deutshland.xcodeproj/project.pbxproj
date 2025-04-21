@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1274C6A22DB4333300B17251 /* NetworkLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 1274C6A12DB4333300B17251 /* NetworkLibrary */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		129CD2CD2D87232B0034166F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1274C6A22DB4333300B17251 /* NetworkLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = "Leben In Deutshland";
 			packageProductDependencies = (
+				1274C6A12DB4333300B17251 /* NetworkLibrary */,
 			);
 			productName = "Leben In Deutshland";
 			productReference = 129CD2BC2D87232A0034166F /* Leben In Deutshland.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 129CD2B32D87232A0034166F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1274C6A02DB4333300B17251 /* XCLocalSwiftPackageReference "../../24 NetworkLayer/MyLibrary" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 129CD2BD2D87232A0034166F /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		1274C6A02DB4333300B17251 /* XCLocalSwiftPackageReference "../../24 NetworkLayer/MyLibrary" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../24 NetworkLayer/MyLibrary";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1274C6A12DB4333300B17251 /* NetworkLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 129CD2B42D87232A0034166F /* Project object */;
 }

@@ -8,11 +8,13 @@
 
 import Foundation
 import Combine
+import NetworkLibrary
 class QuestionViewModel: ObservableObject {
     @Published var questions: [Question]
     @Published var isLoading: Bool
     @Published var errorMessage: String?
 //    @Published var savedQuestions: [Question]
+    private let networkManager: NetworkManagerProtocol
     private let keyValueStorage: KeyValueStoring
     private var cancellables = Set<AnyCancellable>()
     let savedQuestionsKey = "saved_questions_ids_key"
@@ -24,6 +26,7 @@ class QuestionViewModel: ObservableObject {
 //        self.savedQuestions = savedQuestions
         self.keyValueStorage = keyValueStorage
         self.cancellables = cancellables
+        self.networkManager = NetworkManager()
     }
     
     func fetchQuestions() {
@@ -49,7 +52,11 @@ class QuestionViewModel: ObservableObject {
         let data = Data(nsdata!)
         let questionList = try? JSONDecoder().decode([Question].self, from: data)
         self.isLoading = false
-        self.questions = questionList ?? []
+        guard let questionList else {
+            self.errorMessage = "Failed to load questions"
+            return
+        }
+        self.questions = Array(questionList[0...299])
     }
 }
 

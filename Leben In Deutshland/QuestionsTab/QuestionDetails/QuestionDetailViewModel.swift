@@ -28,7 +28,7 @@ extension UserDefaults: KeyValueStoring {
   }
 
 struct QuestionDetailViewModel {
-    private let allQuestions: [Question]
+    let allQuestions: [Question]
     private let keyValueStorage: KeyValueStoring
     let savedQuestionsKey = "saved_questions_ids_key"
     

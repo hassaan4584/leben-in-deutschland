@@ -11,15 +11,31 @@ struct TabbarView: View {
     var body: some View {
         TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
             QuestionListView()
-                .tabItem { Text("All Questions") }
-                .tag(1)
-            Text("Tab Content 2").tabItem { /*@START_MENU_TOKEN@*/Text("Tab Label 2")/*@END_MENU_TOKEN@*/ }.tag(2)
-            SettingsView()
                 .tabItem {
-                    TabIconView()
+                    TabIconView(title: "All Questions",
+                                imageName: "questionmark.circle.fill")
+                }
+                .tag(1)
+            StateQuestionsView(viewModel: .init())
+                .tabItem {
+                    TabIconView(title: "State Questions",
+                                imageName: "flag.circle.fill")
+                }
+                .tag(2)
+            Text("Gallery Tab")
+                .tabItem {
+                    TabIconView(title: "Gallery",
+                                imageName: "house.circle.fill")
                 }
                 .tag(3)
+            SettingsView(viewModel: SettingsViewModel())
+                .tabItem {
+                    TabIconView(title: "Settings",
+                                imageName: "person.circle")
+                }
+                .tag(4)
         }
+        .background(Color.gray.opacity(0.2))
     }
 }
 
@@ -28,8 +44,16 @@ struct TabbarView: View {
 }
 
 struct TabIconView: View {
+    private let title: String
+    private let imageName: String
+    
+    init(title: String = "", imageName: String = "") {
+        self.title = title
+        self.imageName = imageName
+    }
+
     var body: some View {
-        Text("Settings")
-        Image(systemName: "person.circle")
+        Text(title)
+        Image(systemName: imageName)
     }
 }

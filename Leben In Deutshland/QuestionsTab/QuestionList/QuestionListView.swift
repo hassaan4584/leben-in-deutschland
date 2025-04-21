@@ -19,7 +19,9 @@ struct QuestionListView: View {
                     Text("Error: \(errorMessage)")
                 } else {
                     List(viewModel.questions.indices, id: \.self) { index in
-                        NavigationLink(destination: QuestionDetailView(questions: viewModel.questions, currentIndex: index, viewModel: QuestionDetailViewModel(allQuestions: viewModel.questions), selectedQuestion: viewModel.questions[index])) {
+                        NavigationLink(destination: QuestionDetailView(currentIndex: index,
+                                                                       viewModel: QuestionDetailViewModel(allQuestions: viewModel.questions),
+                                                                       selectedQuestion: viewModel.questions[index])) {
                             HStack(alignment: .top) {
                                 Text("\(index + 1) ")
                                     .bold()
