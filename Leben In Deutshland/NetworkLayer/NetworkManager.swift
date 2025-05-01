@@ -56,19 +56,19 @@ import Foundation
 import Foundation
 import Combine
 
-class NetworkManager {
-    static let shared = NetworkManager()
-    private let urlString = "https://hassaan4584.github.io/hassaan.github.io/questions/allQuestions.json"
-    
-    func fetchQuestions() -> AnyPublisher<[Question], Error> {
-        guard let url = URL(string: urlString) else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: [Question].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
-}
+//class NetworkManager {
+//    static let shared = NetworkManager()
+//    private let urlString = "https://hassaan4584.github.io/hassaan.github.io/questions/allQuestions.json"
+//    
+//    func fetchQuestions() -> AnyPublisher<[Question], Error> {
+//        guard let url = URL(string: urlString) else {
+//            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+//        }
+//        
+//        return URLSession.shared.dataTaskPublisher(for: url)
+//            .map(\.data)
+//            .decode(type: [Question].self, decoder: JSONDecoder())
+//            .receive(on: DispatchQueue.main)
+//            .eraseToAnyPublisher()
+//    }
+//}
