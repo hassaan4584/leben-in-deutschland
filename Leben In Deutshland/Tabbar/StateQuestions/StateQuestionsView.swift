@@ -38,7 +38,7 @@ struct StateQuestionsView: View {
                 }
                     else {
                         List(viewModel.selectedStateQuestions.indices, id: \.self) { index in
-                        NavigationLink(destination: QuestionDetailView(currentIndex: index, viewModel: QuestionDetailViewModel(allQuestions: viewModel.selectedStateQuestions), selectedQuestion: viewModel.selectedStateQuestions[index])) {
+                            NavigationLink(destination: QuestionDetailView(viewModel: QuestionDetailViewModel(allQuestions: viewModel.selectedStateQuestions, currentIndex: index))) {
                             HStack(alignment: .top) {
                                 Text("\(index + 1) ")
                                     .bold()

@@ -10,13 +10,15 @@ import SwiftUI
 struct TabbarView: View {
     var body: some View {
         TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
-            QuestionListView()
+            QuestionsListView()
                 .tabItem {
                     TabIconView(title: "All Questions",
                                 imageName: "questionmark.circle.fill")
                 }
                 .tag(1)
-            StateQuestionsView(viewModel: .init())
+            NavigationStack {
+                StateQuestionsView(viewModel: .init())
+            }
                 .tabItem {
                     TabIconView(title: "State Questions",
                                 imageName: "flag.circle.fill")
@@ -34,6 +36,14 @@ struct TabbarView: View {
                                 imageName: "person.circle")
                 }
                 .tag(4)
+            
+            NavigationStack {
+                SettingsView(viewModel: SettingsViewModel())
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+            .tag(5)
         }
         .background(Color.gray.opacity(0.2))
     }

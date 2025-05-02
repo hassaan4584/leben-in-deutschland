@@ -7,42 +7,56 @@
 
 import SwiftUI
 
-struct QuestionListView: View {
-    @StateObject private var viewModel = QuestionViewModel()
+struct QuestionsListView: View {
+    @StateObject var viewModel = QuestionViewModel()
+    @State private var navigationPath = NavigationPath()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             VStack {
                 if viewModel.isLoading {
                     ProgressView()
                 } else if let errorMessage = viewModel.errorMessage {
                     Text("Error: \(errorMessage)")
                 } else {
+                    
                     List(viewModel.questions.indices, id: \.self) { index in
-                        NavigationLink(destination: QuestionDetailView(currentIndex: index,
-                                                                       viewModel: QuestionDetailViewModel(allQuestions: viewModel.questions),
-                                                                       selectedQuestion: viewModel.questions[index])) {
+                        Button {
+                            navigationPath.append(index)
+                        } label: {
                             HStack(alignment: .top) {
                                 Text("\(index + 1) ")
                                     .bold()
-                                Text(viewModel.questions[index].question)
+                                    .foregroundStyle(.black)
+                                Text(viewModel.getTranslatedQuestion(index))
+                                    .foregroundStyle(.black)
+
                             }
-                            
                         }
                     }
                 }
             }
-            .navigationTitle("Questions")
-            .onAppear {
-                // Fetch questions only when the view appears
-                if viewModel.questions.isEmpty {
-                    viewModel.fetchQuestions()
-                }
+            .navigationDestination(for: Int.self) { index in
+                QuestionDetailView(
+                    viewModel: QuestionDetailViewModel(
+                        allQuestions: viewModel.questions,
+                        currentIndex: index
+                    )
+                )
             }
         }
+        .navigationTitle("Questions")
+        .onAppear {
+            // Fetch questions only when the view appears
+            if viewModel.questions.isEmpty {
+                viewModel.fetchQuestions()
+            } else {
+                viewModel.viewWillAppear()
+            }
+        }
+
     }
 }
-
 #Preview {
-    QuestionListView()
+    QuestionsListView()
 }

@@ -11,22 +11,38 @@ import Combine
 import NetworkLibrary
 class QuestionViewModel: ObservableObject {
     @Published var questions: [Question]
+    @Published var selectedQuestionIndex: Int?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
-//    @Published var savedQuestions: [Question]
     private let networkManager: NetworkManagerProtocol
     private let keyValueStorage: KeyValueStoring
+    private let settingsService: SettingsServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     let savedQuestionsKey = "saved_questions_ids_key"
+    @Published private var appSettings = AppSettings.default
     
     init(keyValueStorage: KeyValueStoring = UserDefaults.standard,
+         settingsService: SettingsServiceProtocol = SettingsService(),
          cancellables: Set<AnyCancellable> = Set<AnyCancellable>()) {
              questions = []
         self.isLoading = false
-//        self.savedQuestions = savedQuestions
         self.keyValueStorage = keyValueStorage
+        self.settingsService = settingsService
         self.cancellables = cancellables
         self.networkManager = NetworkManager()
+        
+        settingsService.loadSettings()
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [unowned self] loadedSettings in
+                self.appSettings = loadedSettings
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    func getTranslatedQuestion(_ index: Int) -> String {
+        (questions[index].translation[appSettings.primaryLanguage.code]?.question ?? questions[index].question)
     }
     
     func fetchQuestions() {
@@ -45,6 +61,21 @@ class QuestionViewModel: ObservableObject {
 //                self?.questions = questions
 //            }
 //            .store(in: &cancellables)
+    }
+    
+    func viewWillAppear() {
+        settingsService.loadSettings()
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [weak self] newSettings in
+                guard let self else { return }
+                if newSettings.primaryLanguage.code != self.appSettings.primaryLanguage.code {
+                    self.appSettings = newSettings
+                }
+            }
+            .store(in: &cancellables)
+
     }
     
     func getQuestionsFromDisk() {

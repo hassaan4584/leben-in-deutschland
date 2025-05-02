@@ -11,24 +11,33 @@ import SwiftUI
 import SwiftUI
 
 struct QuestionDetailView: View {
-    @State private var currentIndex: Int
-    var viewModel: QuestionDetailViewModel
-    @State private var selectedLanguage: String = "en"
-    @State private var isSaved: Bool = false
-    @State private var selectedAnswer: String? = nil // Track the selected answer
-    @State private var isAnswerCorrect: Bool? = nil // Track if the answer is correct
+    var currentIndex: Int {
+        viewModel.currentIndex
+    }
+    var translatedQuestion: Question.Translation {
+        viewModel.translatedQuestion
+    }
     
-    init(currentIndex: Int,
-         viewModel: QuestionDetailViewModel,
-         selectedQuestion: Question,
-         selectedLanguage: String = "de",
-         selectedAnswer: String? = nil,
-         isAnswerCorrect: Bool? = nil) {
-        self.currentIndex = currentIndex
+    var correctAnswer: String {
+        viewModel.correctAnswer
+    }
+    var selectedAnswer: String? {
+        viewModel.selectedAnswer
+    }
+    
+    var isSaved: Bool {
+        viewModel.isSaved
+    }
+    
+    var isAnswerCorrect: Bool? {
+        viewModel.isAnswerCorrect
+    }
+    
+    @ObservedObject var viewModel: QuestionDetailViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    init(viewModel: QuestionDetailViewModel) {
         self.viewModel = viewModel
-        self.selectedLanguage = selectedLanguage
-        self.selectedAnswer = selectedAnswer
-        self.isAnswerCorrect = isAnswerCorrect
     }
     
     var body: some View {
@@ -41,59 +50,58 @@ struct QuestionDetailView: View {
                         .fixedSize(horizontal: false, vertical: true)
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        OptionView(
-                            text: translatedQuestion.a,
-                            isSelected: selectedAnswer == "a",
-                            isCorrect: isAnswerCorrect,
-                            correctAnswer: viewModel.allQuestions[currentIndex].solution
-                        )
+                        let optionViewModelA = OptionViewModel(translatedQuestion: translatedQuestion.a,
+                                                              isSelected: selectedAnswer == "a",
+                                                              isCorrect: isAnswerCorrect,
+                                                               correctAnswer: correctAnswer)
+                            
+                        OptionView(viewModel: optionViewModelA)
                         .onTapGesture {
-                            handleAnswerSelection(answer: "a")
+                            viewModel.handleAnswerSelection(answer: "a")
                         }
                         
-                        OptionView(
-                            text: translatedQuestion.b,
-                            isSelected: selectedAnswer == "b",
-                            isCorrect: isAnswerCorrect,
-                            correctAnswer: viewModel.allQuestions[currentIndex].solution
-                        )
+                        let optionViewModelB = OptionViewModel(translatedQuestion: translatedQuestion.b,
+                                                              isSelected: selectedAnswer == "b",
+                                                              isCorrect: isAnswerCorrect,
+                                                              correctAnswer: correctAnswer)
+                            
+                        OptionView(viewModel: optionViewModelB)
                         .onTapGesture {
-                            handleAnswerSelection(answer: "b")
+                            viewModel.handleAnswerSelection(answer: "b")
                         }
                         
-                        OptionView(
-                            text: translatedQuestion.c,
-                            isSelected: selectedAnswer == "c",
-                            isCorrect: isAnswerCorrect,
-                            correctAnswer: viewModel.allQuestions[currentIndex].solution
-                        )
+                        let optionViewModelC = OptionViewModel(translatedQuestion: translatedQuestion.c,
+                                                              isSelected: selectedAnswer == "c",
+                                                              isCorrect: isAnswerCorrect,
+                                                              correctAnswer: correctAnswer)
+                            
+                        OptionView(viewModel: optionViewModelC)
                         .onTapGesture {
-                            handleAnswerSelection(answer: "c")
+                            viewModel.handleAnswerSelection(answer: "c")
                         }
                         
-                        OptionView(
-                            text: translatedQuestion.d,
-                            isSelected: selectedAnswer == "d",
-                            isCorrect: isAnswerCorrect,
-                            correctAnswer: viewModel.allQuestions[currentIndex].solution
-                        )
+                        let optionViewModelD = OptionViewModel(translatedQuestion: translatedQuestion.d,
+                                                              isSelected: selectedAnswer == "d",
+                                                              isCorrect: isAnswerCorrect,
+                                                              correctAnswer: correctAnswer)
+                            
+                        OptionView(viewModel: optionViewModelD)
                         .onTapGesture {
-                            handleAnswerSelection(answer: "d")
+                            viewModel.handleAnswerSelection(answer: "d")
                         }
                     }
                     
                     Spacer()
                     
                 }
-//                .navigationTitle("Question \(questions[currentIndex].num)")
             }
             HStack {
                 Button(action: {
-                    viewModel.saveQuestion(viewModel.allQuestions[currentIndex])
-                    isSaved = viewModel.isQuestionSaved(viewModel.allQuestions[currentIndex])
+                    viewModel.saveQuestion(viewModel.allQuestions[viewModel.currentIndex])
+                    viewModel.isSaved = viewModel.isQuestionSaved(viewModel.allQuestions[viewModel.currentIndex])
                 }) {
                     Text(
-                        isSaved ? "Saved" : "Save")
+                        isSaved ? "Unmark" : "Mark")
                     .padding(EdgeInsets.init(top: 12, leading: 16, bottom: 12, trailing: 16))
                     .background(isSaved ? Color.green : Color.blue)
                     .foregroundColor(.white)
@@ -103,7 +111,8 @@ struct QuestionDetailView: View {
                 Spacer()
                 
                 Button("Translate") {
-                    selectedLanguage = selectedLanguage == "en" ? "de" : "en"
+//                    selectedLanguage = selectedLanguage == "en" ? "de" : "en"
+                    viewModel.translateQuestion()
                 }
                 .padding(EdgeInsets.init(top: 12, leading: 16, bottom: 12, trailing: 16))
                 .background(Color.blue)
@@ -111,14 +120,13 @@ struct QuestionDetailView: View {
                 .cornerRadius(8)
             }
 //            .padding([.top, .trailing], 0)
-//            .background(Color.red.opacity(0.2))
             
             
             HStack {
                 Button("Previous") {
                     if currentIndex > 0 {
-                        let previousIndex = currentIndex - 1
-                        loadQuestion(at: previousIndex)
+                        let previousIndex = viewModel.currentIndex - 1
+                        viewModel.loadQuestion(at: previousIndex)
                     }
                 }
                 .disabled(currentIndex == 0)
@@ -126,12 +134,12 @@ struct QuestionDetailView: View {
                 Spacer()
                 
                 Button("Next") {
-                    if currentIndex < viewModel.allQuestions.count - 1 {
-                        let nextIndex = currentIndex + 1
-                        loadQuestion(at: nextIndex)
+                    if viewModel.currentIndex < viewModel.allQuestions.count - 1 {
+                        let nextIndex = viewModel.currentIndex + 1
+                        viewModel.loadQuestion(at: nextIndex)
                     }
                 }
-                .disabled(currentIndex == viewModel.allQuestions.count - 1)
+                .disabled(viewModel.currentIndex == viewModel.allQuestions.count - 1)
             }
             
             ScrollViewReader { proxy in
@@ -143,7 +151,7 @@ struct QuestionDetailView: View {
                                 ZStack {
                                     Button("\(index + 1)") {
                                         let nextIndex = index
-                                        loadQuestion(at: nextIndex)
+                                        viewModel.loadQuestion(at: nextIndex)
                                         // Scroll to the selected index with animation
                                         withAnimation {
                                             proxy.scrollTo(index, anchor: .center)
@@ -172,7 +180,7 @@ struct QuestionDetailView: View {
                                 
                             }
                             .padding()
-                            .id(index) // Important: Assign ID for scrolling
+                            .id(index) // Assigning id for scrolling
                             .frame(width: 50, height: 50)
                             .background(getBackgroundColorForQuestions(index: index))
                             .cornerRadius(10)
@@ -183,42 +191,25 @@ struct QuestionDetailView: View {
                     .background(RoundedRectangle(cornerRadius: 10) .fill(Color.gray.opacity(0.2)))
                     
                 }
-                .onChange(of: currentIndex, { _, newIndex in
+                .onChange(of: viewModel.currentIndex, { _, newIndex in
                     withAnimation {
                         proxy.scrollTo(newIndex, anchor: .center)
                     }
                 })
+                .onAppear() {
+                    proxy.scrollTo(viewModel.currentIndex, anchor: .center)
+                }
             }
         }
         .padding()
-        .navigationTitle("Question \(viewModel.allQuestions[currentIndex].num)")
+        .navigationTitle("Question \(viewModel.allQuestions[viewModel.currentIndex].num)")
+        .onAppear {
+            // Fetch questions only when the view appears
+            viewModel.loadQuestion(at: currentIndex)
+        }
+
     }
 
-    
-    private var translatedQuestion: Question.Translation {
-        viewModel.allQuestions[currentIndex].translation[selectedLanguage] ?? Question.Translation(
-            question: viewModel.allQuestions[currentIndex].question,
-            a: viewModel.allQuestions[currentIndex].a,
-            b: viewModel.allQuestions[currentIndex].b,
-            c: viewModel.allQuestions[currentIndex].c,
-            d: viewModel.allQuestions[currentIndex].d,
-            context: ""
-        )
-    }
-    
-    private func loadQuestion(at index: Int) {
-        currentIndex = index
-        isSaved = viewModel.isQuestionSaved(viewModel.allQuestions[currentIndex])
-        selectedAnswer = nil
-        isAnswerCorrect = nil
-        
-    }
-    
-    private func handleAnswerSelection(answer: String) {
-        selectedAnswer = answer
-        isAnswerCorrect = answer == viewModel.allQuestions[currentIndex].solution
-    }
-    
     private func getBackgroundColorForQuestions(index: Int) -> Color {
         if index == currentIndex {
             return Color(.systemGray2)
@@ -233,7 +224,7 @@ struct QuestionDetailView: View {
     let question2 = Question.random()
     let questions = [question1, question2, .random(), .random(), .random(), .random(), .random(), .random(), .random(), .random(), .random()]
     
-    QuestionDetailView(currentIndex: 0,
-                       viewModel: QuestionDetailViewModel(allQuestions: questions),
-                       selectedQuestion: question1)
+    let vm = QuestionDetailViewModel(allQuestions: questions, currentIndex: 0)
+    
+    QuestionDetailView(viewModel: vm)
 }
