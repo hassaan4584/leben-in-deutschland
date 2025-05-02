@@ -7,17 +7,35 @@
 
 import SwiftUI
 
-struct OptionView: View {
-    let text: String
+enum OptionState {
+    case notSelected
+    case selected(Bool)
+}
+class OptionViewModel: ObservableObject {
+    let translatedQuestion: String
+    // TODO: use `OptionState` instead of Bool flags
     let isSelected: Bool
     let isCorrect: Bool?
     let correctAnswer: String
+
+    init(translatedQuestion: String, isSelected: Bool, isCorrect: Bool?, correctAnswer: String) {
+        self.translatedQuestion = translatedQuestion
+        self.isSelected = isSelected
+        self.isCorrect = isCorrect
+        self.correctAnswer = correctAnswer
+    }
+}
+
+struct OptionView: View {
+    var isCorrect: Bool? { viewModel.isCorrect }
+    var isSelected: Bool { viewModel.isSelected }
+    let viewModel: OptionViewModel
     
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: getChecboxIcon())
                 .foregroundColor(getCheckboxColor())
-            Text(text)
+            Text(viewModel.translatedQuestion)
                 .foregroundColor(getTextColor())
                 .font(.caption)
                 .fixedSize(horizontal: false, vertical: true)
@@ -58,10 +76,14 @@ struct OptionView: View {
 }
 
 #Preview {
+    let optionViewModel = OptionViewModel(translatedQuestion:  "This is a Question",
+                                          isSelected: false,
+                                          isCorrect: nil,
+                                          correctAnswer: "b")
     VStack(alignment: .leading, spacing: 10) {
         
-        OptionView(text: "This is some Question", isSelected: false, isCorrect: false, correctAnswer: "b")
+        OptionView(viewModel: optionViewModel)
         
-        OptionView(text: "This is some Question with a very very long text that is going to go into multiple lines. Freedom of press is also a fundamental right which cannot be abolished", isSelected: true, isCorrect: true, correctAnswer: "b")
+        OptionView(viewModel: optionViewModel)
     }
 }

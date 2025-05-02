@@ -6,36 +6,90 @@
 //
 
 import Foundation
+import Combine
 
-protocol KeyValueStoring {
-    func value<T>(for key: String) -> T?
-    func setValue<T>(_ value: T, for key: String)
-    func removeValue(for key: String)
-}
 
-extension UserDefaults: KeyValueStoring {
-    public func value<T>(for key: String) -> T? {
-      object(forKey: key) as? T
-    }
-
-    public func setValue<T>(_ value: T, for key: String) {
-      set(value, forKey: key)
-    }
-
-    public func removeValue(for key: String) {
-      removeObject(forKey: key)
-    }
-  }
-
-struct QuestionDetailViewModel {
+class QuestionDetailViewModel: ObservableObject {
+    @Published var currentIndex: Int
+    @Published var isSaved: Bool = false
+    @Published var selectedLanguage: String
+    @Published var selectedAnswer: String? = nil
+    @Published var isAnswerCorrect: Bool? = nil
+    
     let allQuestions: [Question]
     private let keyValueStorage: KeyValueStoring
+    private let settingsService: SettingsServiceProtocol
     let savedQuestionsKey = "saved_questions_ids_key"
-    
+    private var cancellables = Set<AnyCancellable>()
+
     init(allQuestions: [Question],
+         currentIndex: Int,
+         settingsService: SettingsServiceProtocol = SettingsService(),
          keyValueStorage: KeyValueStoring = UserDefaults.standard) {
         self.allQuestions = allQuestions
+        self.currentIndex = currentIndex
+        self.settingsService = settingsService
         self.keyValueStorage = keyValueStorage
+        self.selectedLanguage = AppSettings.default.primaryLanguage.code
+        settingsService.loadSettings()
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [unowned self] loadedSettings in
+                self.selectedLanguage = loadedSettings.primaryLanguage.code
+            }
+            .store(in: &cancellables)
+
+        
+    }
+    deinit {
+            print("QuestionDetailViewModel deinitialized")
+        }
+    
+    var translatedQuestion: Question.Translation {
+        allQuestions[currentIndex].translation[selectedLanguage] ?? Question.Translation(
+            question: allQuestions[currentIndex].question,
+            a: allQuestions[currentIndex].a,
+            b: allQuestions[currentIndex].b,
+            c: allQuestions[currentIndex].c,
+            d: allQuestions[currentIndex].d,
+            context: ""
+        )
+    }
+    
+    var correctAnswer: String {
+        allQuestions[currentIndex].solution
+    }
+    
+
+    func loadQuestion(at index: Int) {
+        currentIndex = index
+        isSaved = isQuestionSaved(allQuestions[currentIndex])
+        selectedAnswer = nil
+        isAnswerCorrect = nil
+        
+    }
+    
+    func handleAnswerSelection(answer: String) {
+        selectedAnswer = answer
+        isAnswerCorrect = answer == allQuestions[currentIndex].solution
+    }
+    
+    func translateQuestion() {
+        settingsService.loadSettings()
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [weak self] loadedSettings in
+                guard let self else { return }
+                
+                if selectedLanguage == loadedSettings.primaryLanguage.code {
+                    selectedLanguage = loadedSettings.secondaryLanguage.code
+                } else {
+                    selectedLanguage = loadedSettings.primaryLanguage.code
+                }
+            }
+            .store(in: &cancellables)
+
     }
     
     
