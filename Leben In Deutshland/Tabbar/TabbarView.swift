@@ -24,19 +24,6 @@ struct TabbarView: View {
                                 imageName: "flag.circle.fill")
                 }
                 .tag(2)
-            Text("Gallery Tab")
-                .tabItem {
-                    TabIconView(title: "Gallery",
-                                imageName: "house.circle.fill")
-                }
-                .tag(3)
-            SettingsView(viewModel: SettingsViewModel())
-                .tabItem {
-                    TabIconView(title: "Settings",
-                                imageName: "person.circle")
-                }
-                .tag(4)
-            
             NavigationStack {
                 SettingsView(viewModel: SettingsViewModel())
             }
