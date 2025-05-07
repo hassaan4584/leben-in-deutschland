@@ -13,9 +13,9 @@ struct StateQuestionsView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            VStack(spacing: 0) {
+            VStack(alignment: .trailing, spacing: 0) {
                 Form {
-                    Picker("Select a State", selection: $viewModel.selectedState) {
+                    Picker("Selected State", selection: $viewModel.selectedState) {
                         ForEach(viewModel.stateNames, id: \.self) { stateName in
                             Text(stateName)
                         }
@@ -26,7 +26,7 @@ struct StateQuestionsView: View {
                 .scrollDisabled(true)
                 
                 if viewModel.isLoading {
-                    ProgressView()
+                    Spacer()
                 } else if let errorMessage = viewModel.errorMessage {
                     Text("Error: \(errorMessage)")
                 }
@@ -54,6 +54,7 @@ struct StateQuestionsView: View {
             }
             .navigationTitle("State Questions")
             .navigationBarTitleDisplayMode(.inline)
+            .overlay(loadingOverlay)
             .onAppear {
                 // Fetch questions only when the view appears
                 if viewModel.selectedStateQuestions.isEmpty {
@@ -62,6 +63,18 @@ struct StateQuestionsView: View {
             }
         }
     }
+    
+    private var loadingOverlay: some View {
+        Group {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+                    .scaleEffect(2.5)
+                
+            }
+        }
+    }
+
 }
 
 #Preview {

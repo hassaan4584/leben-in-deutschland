@@ -11,6 +11,7 @@ struct AppSettings: Codable {
     var primaryLanguageStr: String
     var primaryLanguage: LanguageOption
     var secondaryLanguage: LanguageOption
+    var defaultState: String
     var notificationsEnabled: Bool
     var darkModeEnabled: Bool
     
@@ -18,6 +19,7 @@ struct AppSettings: Codable {
         primaryLanguageStr: "English",
         primaryLanguage: LanguageOption.german,
         secondaryLanguage: LanguageOption.english,
+        defaultState: "Berlin",
         notificationsEnabled: true,
         darkModeEnabled: false
     )

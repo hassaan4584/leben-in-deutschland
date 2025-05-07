@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-
 class QuestionDetailViewModel: ObservableObject {
     @Published var currentIndex: Int
     @Published var isSaved: Bool = false
@@ -60,7 +59,6 @@ class QuestionDetailViewModel: ObservableObject {
     var correctAnswer: String {
         allQuestions[currentIndex].solution
     }
-    
 
     func loadQuestion(at index: Int) {
         currentIndex = index
@@ -89,9 +87,7 @@ class QuestionDetailViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-
     }
-    
     
     func saveQuestion(_ question: Question) {
         guard var savedQuestionIds: [String] = keyValueStorage.value(for: savedQuestionsKey)

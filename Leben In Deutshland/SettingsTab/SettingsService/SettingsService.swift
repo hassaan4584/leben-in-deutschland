@@ -22,7 +22,7 @@ class SettingsService: SettingsServiceProtocol {
             
             if let data: Data = self.userDefaults.value(for: self.settingsKey) ,
                let settings = try? JSONDecoder().decode(AppSettings.self, from: data) {
-                promise(.success(settings))
+                    promise(.success(settings))
             } else {
                 promise(.success(AppSettings.default))
             }
