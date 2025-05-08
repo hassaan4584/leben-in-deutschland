@@ -16,13 +16,13 @@ class OptionViewModel: ObservableObject {
     // TODO: use `OptionState` instead of Bool flags
     let isSelected: Bool
     let isCorrect: Bool?
-    let correctAnswer: String
+//    let correctAnswer: String
 
     init(translatedQuestion: String, isSelected: Bool, isCorrect: Bool?, correctAnswer: String) {
         self.translatedQuestion = translatedQuestion
         self.isSelected = isSelected
         self.isCorrect = isCorrect
-        self.correctAnswer = correctAnswer
+//        self.correctAnswer = correctAnswer
     }
 }
 
@@ -35,6 +35,10 @@ struct OptionView: View {
         HStack(spacing: 10) {
             Image(systemName: getChecboxIcon())
                 .foregroundColor(getCheckboxColor())
+//                .foregroundColor(.white)
+                .background( Circle()
+                    .fill(.clear)
+                )
             Text(viewModel.translatedQuestion)
                 .foregroundColor(getTextColor())
                 .font(.caption)
@@ -48,9 +52,9 @@ struct OptionView: View {
     
     private func getChecboxIcon() -> String {
         if isSelected {
-            return isCorrect == true ? "checkmark.square.fill" : "xmark.square.fill"
+            return isCorrect == true ? "checkmark.circle.fill" : "xmark.circle.fill"
         } else {
-            return "square"
+            return "circle"
         }
     }
     private func getCheckboxColor() -> Color {
@@ -77,13 +81,15 @@ struct OptionView: View {
 
 #Preview {
     let optionViewModel = OptionViewModel(translatedQuestion:  "This is a Question",
-                                          isSelected: false,
-                                          isCorrect: nil,
+                                          isSelected: true,
+                                          isCorrect: false,
                                           correctAnswer: "b")
     VStack(alignment: .leading, spacing: 10) {
         
         OptionView(viewModel: optionViewModel)
         
-        OptionView(viewModel: optionViewModel)
+        OptionView(viewModel: .init(translatedQuestion: "This is Correct Answer", isSelected: true, isCorrect: true, correctAnswer: "a"))
+
+        OptionView(viewModel: .init(translatedQuestion: "This is unselected Question", isSelected: false, isCorrect: nil, correctAnswer: "a"))
     }
 }

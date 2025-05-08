@@ -74,7 +74,6 @@ struct StateQuestionsView: View {
             }
         }
     }
-
 }
 
 #Preview {

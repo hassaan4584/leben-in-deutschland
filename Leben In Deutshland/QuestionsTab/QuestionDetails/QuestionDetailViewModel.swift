@@ -15,6 +15,8 @@ class QuestionDetailViewModel: ObservableObject {
     @Published var selectedAnswer: String? = nil
     @Published var isAnswerCorrect: Bool? = nil
     
+    /// The dictionary of [Index: IsQuestionAt'Index' correctly answered
+    private var questionAttempts: [Int: Bool] = [:]
     let allQuestions: [Question]
     private let keyValueStorage: KeyValueStoring
     private let settingsService: SettingsServiceProtocol
@@ -70,7 +72,13 @@ class QuestionDetailViewModel: ObservableObject {
     
     func handleAnswerSelection(answer: String) {
         selectedAnswer = answer
-        isAnswerCorrect = answer == allQuestions[currentIndex].solution
+        let isCorrect = answer == allQuestions[currentIndex].solution
+        self.isAnswerCorrect = isCorrect
+        questionAttempts[currentIndex] = isCorrect
+    }
+    
+    func isQuestionCorrectlyAnswered(at index: Int) -> Bool? {
+        return questionAttempts[index]
     }
     
     func translateQuestion() {

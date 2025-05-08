@@ -45,6 +45,7 @@ struct QuestionsListView: View {
                 )
             }
         }
+        .overlay(loadingOverlay)
         .navigationTitle("Questions")
         .onAppear {
             // Fetch questions only when the view appears
@@ -55,6 +56,17 @@ struct QuestionsListView: View {
             }
         }
 
+    }
+    
+    private var loadingOverlay: some View {
+        Group {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+                    .scaleEffect(2.5)
+                
+            }
+        }
     }
 }
 #Preview {
