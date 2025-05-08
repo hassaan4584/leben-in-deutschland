@@ -28,9 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		129CD2BC2D87232A0034166F /* Leben In Deutshland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Leben In Deutshland.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		129CD2CC2D87232B0034166F /* Leben In DeutshlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutshlandTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		129CD2D62D87232B0034166F /* Leben In DeutshlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutshlandUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		129CD2BC2D87232A0034166F /* Leben In Deutschland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Leben In Deutschland.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		129CD2CC2D87232B0034166F /* Leben In DeutschlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutschlandTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		129CD2D62D87232B0034166F /* Leben In DeutschlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutschlandUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -90,9 +90,9 @@
 		129CD2BD2D87232A0034166F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				129CD2BC2D87232A0034166F /* Leben In Deutshland.app */,
-				129CD2CC2D87232B0034166F /* Leben In DeutshlandTests.xctest */,
-				129CD2D62D87232B0034166F /* Leben In DeutshlandUITests.xctest */,
+				129CD2BC2D87232A0034166F /* Leben In Deutschland.app */,
+				129CD2CC2D87232B0034166F /* Leben In DeutschlandTests.xctest */,
+				129CD2D62D87232B0034166F /* Leben In DeutschlandUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		129CD2BB2D87232A0034166F /* Leben In Deutshland */ = {
+		129CD2BB2D87232A0034166F /* Leben In Deutschland */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 129CD2E02D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In Deutshland" */;
+			buildConfigurationList = 129CD2E02D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In Deutschland" */;
 			buildPhases = (
 				129CD2B82D87232A0034166F /* Sources */,
 				129CD2B92D87232A0034166F /* Frameworks */,
@@ -115,17 +115,17 @@
 			fileSystemSynchronizedGroups = (
 				129CD2BE2D87232A0034166F /* Leben In Deutshland */,
 			);
-			name = "Leben In Deutshland";
+			name = "Leben In Deutschland";
 			packageProductDependencies = (
 				1274C6A12DB4333300B17251 /* NetworkLibrary */,
 			);
 			productName = "Leben In Deutshland";
-			productReference = 129CD2BC2D87232A0034166F /* Leben In Deutshland.app */;
+			productReference = 129CD2BC2D87232A0034166F /* Leben In Deutschland.app */;
 			productType = "com.apple.product-type.application";
 		};
-		129CD2CB2D87232B0034166F /* Leben In DeutshlandTests */ = {
+		129CD2CB2D87232B0034166F /* Leben In DeutschlandTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 129CD2E32D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutshlandTests" */;
+			buildConfigurationList = 129CD2E32D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutschlandTests" */;
 			buildPhases = (
 				129CD2C82D87232B0034166F /* Sources */,
 				129CD2C92D87232B0034166F /* Frameworks */,
@@ -139,16 +139,16 @@
 			fileSystemSynchronizedGroups = (
 				129CD2CF2D87232B0034166F /* Leben In DeutshlandTests */,
 			);
-			name = "Leben In DeutshlandTests";
+			name = "Leben In DeutschlandTests";
 			packageProductDependencies = (
 			);
 			productName = "Leben In DeutshlandTests";
-			productReference = 129CD2CC2D87232B0034166F /* Leben In DeutshlandTests.xctest */;
+			productReference = 129CD2CC2D87232B0034166F /* Leben In DeutschlandTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		129CD2D52D87232B0034166F /* Leben In DeutshlandUITests */ = {
+		129CD2D52D87232B0034166F /* Leben In DeutschlandUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 129CD2E62D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutshlandUITests" */;
+			buildConfigurationList = 129CD2E62D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutschlandUITests" */;
 			buildPhases = (
 				129CD2D22D87232B0034166F /* Sources */,
 				129CD2D32D87232B0034166F /* Frameworks */,
@@ -162,11 +162,11 @@
 			fileSystemSynchronizedGroups = (
 				129CD2D92D87232B0034166F /* Leben In DeutshlandUITests */,
 			);
-			name = "Leben In DeutshlandUITests";
+			name = "Leben In DeutschlandUITests";
 			packageProductDependencies = (
 			);
 			productName = "Leben In DeutshlandUITests";
-			productReference = 129CD2D62D87232B0034166F /* Leben In DeutshlandUITests.xctest */;
+			productReference = 129CD2D62D87232B0034166F /* Leben In DeutschlandUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 129CD2B72D87232A0034166F /* Build configuration list for PBXProject "Leben In Deutshland" */;
+			buildConfigurationList = 129CD2B72D87232A0034166F /* Build configuration list for PBXProject "Leben In Deutschland" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -209,9 +209,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				129CD2BB2D87232A0034166F /* Leben In Deutshland */,
-				129CD2CB2D87232B0034166F /* Leben In DeutshlandTests */,
-				129CD2D52D87232B0034166F /* Leben In DeutshlandUITests */,
+				129CD2BB2D87232A0034166F /* Leben In Deutschland */,
+				129CD2CB2D87232B0034166F /* Leben In DeutschlandTests */,
+				129CD2D52D87232B0034166F /* Leben In DeutschlandUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,12 +267,12 @@
 /* Begin PBXTargetDependency section */
 		129CD2CE2D87232B0034166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 129CD2BB2D87232A0034166F /* Leben In Deutshland */;
+			target = 129CD2BB2D87232A0034166F /* Leben In Deutschland */;
 			targetProxy = 129CD2CD2D87232B0034166F /* PBXContainerItemProxy */;
 		};
 		129CD2D82D87232B0034166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 129CD2BB2D87232A0034166F /* Leben In Deutshland */;
+			target = 129CD2BB2D87232A0034166F /* Leben In Deutschland */;
 			targetProxy = 129CD2D72D87232B0034166F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -470,7 +470,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Leben In Deutshland.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Leben In Deutshland";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Leben In Deutschland.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Leben In Deutschland";
 			};
 			name = Debug;
 		};
@@ -489,7 +489,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Leben In Deutshland.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Leben In Deutshland";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Leben In Deutschland.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Leben In Deutschland";
 			};
 			name = Release;
 		};
@@ -530,7 +530,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		129CD2B72D87232A0034166F /* Build configuration list for PBXProject "Leben In Deutshland" */ = {
+		129CD2B72D87232A0034166F /* Build configuration list for PBXProject "Leben In Deutschland" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				129CD2DE2D87232B0034166F /* Debug */,
@@ -539,7 +539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		129CD2E02D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In Deutshland" */ = {
+		129CD2E02D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In Deutschland" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				129CD2E12D87232B0034166F /* Debug */,
@@ -548,7 +548,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		129CD2E32D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutshlandTests" */ = {
+		129CD2E32D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutschlandTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				129CD2E42D87232B0034166F /* Debug */,
@@ -557,7 +557,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		129CD2E62D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutshlandUITests" */ = {
+		129CD2E62D87232B0034166F /* Build configuration list for PBXNativeTarget "Leben In DeutschlandUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				129CD2E72D87232B0034166F /* Debug */,
