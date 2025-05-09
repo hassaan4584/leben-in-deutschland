@@ -147,7 +147,7 @@ struct QuestionDetailView: View {
                                         .shadow(color: getShadowColorForQuestions(index: index), radius: 2, x:2, y:4))
                                     if viewModel.isQuestionSaved(viewModel.allQuestions[index]) {
                                         Image(systemName: "bookmark.fill")
-                                            .offset(x: -14, y: -11)
+                                            .offset(x: -19, y: -16)
                                             .foregroundStyle(Color.black.opacity(0.9))
                                         
                                     }
@@ -159,7 +159,7 @@ struct QuestionDetailView: View {
                                                 .fill(Color.black)
                                                 .frame(width: 10, height: 10)
                                             )
-                                            .offset(x: 13, y: 13)
+                                            .offset(x: 17, y: 17)
 
                                     } else if isCorrectlyAnswered == false {
                                         Image(systemName: "xmark.square.fill")
@@ -168,7 +168,7 @@ struct QuestionDetailView: View {
                                                 .fill(Color.black)
                                                 .frame(width: 10, height: 10)
                                             )
-                                            .offset(x: 13, y: 13)
+                                            .offset(x: 17, y: 17)
                                     }
                                 }
                             }
@@ -194,7 +194,7 @@ struct QuestionDetailView: View {
                 }
                 .background(RoundedRectangle(cornerRadius: 15)
                     .fill(Color(.systemGray5))
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x:2, y:5)
+                    .shadow(color: Color.primary.opacity(0.1), radius: 5, x:2, y:5)
                 )
 
             }
@@ -216,7 +216,7 @@ struct QuestionDetailView: View {
     
     private func getShadowColorForQuestions(index: Int) -> Color {
         if index == currentIndex {
-            return Color(.black.withAlphaComponent(0.2))
+            return Color.primary.opacity(0.2)
         }
         return Color(.clear)
     }

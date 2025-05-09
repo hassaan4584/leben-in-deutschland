@@ -1,5 +1,5 @@
 //
-//  QuestionViewModel.swift
+//  QuestionsListViewModel.swift
 //  Leben In Deutshland
 //
 //  Created by Hassaan Ahmed on 16.03.25.
@@ -8,13 +8,12 @@
 
 import Foundation
 import Combine
-import NetworkLibrary
-class QuestionViewModel: ObservableObject {
+
+class QuestionsListViewModel: ObservableObject {
     @Published var questions: [Question]
     @Published var selectedQuestionIndex: Int?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
-    private let networkManager: NetworkManagerProtocol
     private let keyValueStorage: KeyValueStoring
     private let settingsService: SettingsServiceProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -29,7 +28,6 @@ class QuestionViewModel: ObservableObject {
         self.keyValueStorage = keyValueStorage
         self.settingsService = settingsService
         self.cancellables = cancellables
-        self.networkManager = NetworkManager()
         
         settingsService.loadSettings()
             .receive(on: DispatchQueue.main)

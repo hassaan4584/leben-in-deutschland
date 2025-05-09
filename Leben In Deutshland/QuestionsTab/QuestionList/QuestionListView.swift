@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuestionsListView: View {
-    @StateObject var viewModel = QuestionViewModel()
+    @StateObject var viewModel = QuestionsListViewModel()
     @State private var navigationPath = NavigationPath()
     
     var body: some View {
@@ -27,9 +27,9 @@ struct QuestionsListView: View {
                             HStack(alignment: .top) {
                                 Text("\(index + 1) ")
                                     .bold()
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color.primary)
                                 Text(viewModel.getTranslatedQuestion(index))
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color.primary)
 
                             }
                         }

@@ -38,9 +38,9 @@ struct StateQuestionsView: View {
                             HStack(alignment: .top) {
                                 Text("\(index + 1) ")
                                     .bold()
-                                    .foregroundStyle(.black)
-                                Text(viewModel.selectedStateQuestions[index].num)
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color.primary)
+                                Text(viewModel.selectedStateQuestions[index].question)
+                                    .foregroundStyle(Color.primary)
                                 
                             }
                         }
