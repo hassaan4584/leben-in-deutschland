@@ -39,7 +39,7 @@ struct StateQuestionsView: View {
                                 Text("\(index + 1) ")
                                     .bold()
                                     .foregroundStyle(Color.primary)
-                                Text(viewModel.selectedStateQuestions[index].question)
+                                Text(viewModel.getTranslatedQuestion(index))
                                     .foregroundStyle(Color.primary)
                                 
                             }

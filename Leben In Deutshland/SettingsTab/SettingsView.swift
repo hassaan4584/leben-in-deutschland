@@ -14,7 +14,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 languageSettingsSection
-                defaultStateSection
+//                defaultStateSection
 //                appearanceSection
 //                notificationsSection
                 aboutInfoSection

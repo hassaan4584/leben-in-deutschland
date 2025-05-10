@@ -8,9 +8,15 @@ class StateQuestionsViewModel: ObservableObject {
     @Published var questionIds: [String] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    private var appSettings = AppSettings.default {
+        didSet {
+            saveSettings()
+        }
+    }
     @Published var selectedState: String = "Berlin" {
         didSet {
             guard let selectedStateKey = germanStates[selectedState] else { return }
+            self.appSettings.defaultState = selectedState
             self.selectedStateQuestions = self.filterQuestions(state: selectedStateKey,
                                                                questions: self.allStateQuestions)
         }
@@ -52,6 +58,7 @@ class StateQuestionsViewModel: ObservableObject {
                 
             } receiveValue: { [unowned self] loadedSettings in
                 self.selectedState = loadedSettings.defaultState
+                self.appSettings = loadedSettings
             }
             .store(in: &cancellables)
     }
@@ -59,6 +66,10 @@ class StateQuestionsViewModel: ObservableObject {
     func filterQuestions(state: String, questions: [Question]) -> [Question] {
         let stateSpecificQuestions = questions.filter { $0.num.starts(with: state ) }
         return stateSpecificQuestions
+    }
+
+    func getTranslatedQuestion(_ index: Int) -> String {
+        (selectedStateQuestions[index].translation[appSettings.primaryLanguage.code]?.question ?? selectedStateQuestions[index].question)
     }
 
     func getQuestionsFromDisk() {
@@ -77,6 +88,14 @@ class StateQuestionsViewModel: ObservableObject {
                 self.selectedStateQuestions = self.filterQuestions(state: selectedStateKey,
                                                                           questions: questionList)
                 self.isLoading = false
+            }
+            .store(in: &cancellables)
+    }
+    
+    func saveSettings() {
+        settingsService.saveSettings(appSettings)
+            .sink {  _ in
+            } receiveValue: { _ in
             }
             .store(in: &cancellables)
     }
