@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class SettingsViewModel: ObservableObject {
     @Published var stateNames: [String]
@@ -102,5 +103,15 @@ class SettingsViewModel: ObservableObject {
     var buildNumber: String {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
     }
+    
+    func rateApp() {
+        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id6745673617?action=write-review") else {
+            return
+        }
+        if UIApplication.shared.canOpenURL(writeReviewURL) {
+            UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+        }
+    }
+
 }
 

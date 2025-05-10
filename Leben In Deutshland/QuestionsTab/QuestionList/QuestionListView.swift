@@ -14,9 +14,7 @@ struct QuestionsListView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
-                if viewModel.isLoading {
-                    ProgressView()
-                } else if let errorMessage = viewModel.errorMessage {
+                if let errorMessage = viewModel.errorMessage {
                     Text("Error: \(errorMessage)")
                 } else {
                     
@@ -48,11 +46,10 @@ struct QuestionsListView: View {
         .overlay(loadingOverlay)
         .navigationTitle("Questions")
         .onAppear {
+            viewModel.viewWillAppear()
             // Fetch questions only when the view appears
             if viewModel.questions.isEmpty {
                 viewModel.fetchQuestions()
-            } else {
-                viewModel.viewWillAppear()
             }
         }
 

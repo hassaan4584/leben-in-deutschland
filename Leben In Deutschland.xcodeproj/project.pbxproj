@@ -27,6 +27,7 @@
 		129CD2BC2D87232A0034166F /* Leben In Deutschland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Leben In Deutschland.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		129CD2CC2D87232B0034166F /* Leben In DeutschlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutschlandTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		129CD2D62D87232B0034166F /* Leben In DeutschlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Leben In DeutschlandUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		12EA38E22DCE269B00EE624A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Leben-In-Deutschland/Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		129CD2B32D87232A0034166F = {
 			isa = PBXGroup;
 			children = (
+				12EA38E22DCE269B00EE624A /* Info.plist */,
 				129CD2BE2D87232A0034166F /* Leben In Deutshland */,
 				129CD2CF2D87232B0034166F /* Leben In DeutshlandTests */,
 				129CD2D92D87232B0034166F /* Leben In DeutshlandUITests */,
@@ -398,9 +400,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Leben In Deutshland/Preview Content\"";
-				DEVELOPMENT_TEAM = H92NHYDD4H;
+				DEVELOPMENT_TEAM = A9Q57L84LX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Leben-In-Deutschland/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,8 +413,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hassaan.Leben-In-Deutschland";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hassaan.LebenInDeutschland;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -427,9 +430,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Leben In Deutshland/Preview Content\"";
-				DEVELOPMENT_TEAM = H92NHYDD4H;
+				DEVELOPMENT_TEAM = A9Q57L84LX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Leben-In-Deutschland/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -439,8 +443,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hassaan.Leben-In-Deutschland";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hassaan.LebenInDeutschland;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

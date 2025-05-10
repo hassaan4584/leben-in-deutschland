@@ -17,7 +17,8 @@ struct SettingsView: View {
                 defaultStateSection
 //                appearanceSection
 //                notificationsSection
-                appInfoSection
+                aboutInfoSection
+//                appInfoSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -84,14 +85,40 @@ struct SettingsView: View {
 //        }
 //    }
     
-    private var appInfoSection: some View {
-        Section(header: Text("Leben In Deutschland")) {
+    private var aboutInfoSection: some View {
+        Section {
+//        Section(header: Text("About")) {
+            Button(action: {
+                // Action to share app
+            }) {
+                Label("Share App", systemImage: "square.and.arrow.up")
+                    .foregroundStyle(Color.primary)
+            }
+            
+            Button(action: {
+                viewModel.rateApp()
+            }) {
+                Label("Rate This App", systemImage: "star")
+                    .foregroundStyle(Color.primary)
+            }
+        }
+        header: {
+            Text("About")
+        } footer: {
+            Text("Version \(viewModel.appVersion) (\(viewModel.buildNumber))"
+            )
+        }
+    }
+            
+        private var appInfoSection: some View {
+            Section(header: Text("App")) {
             HStack {
                 Text("Version")
                 Spacer()
                 Text("\(viewModel.appVersion) (\(viewModel.buildNumber))")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
             }
+            
         }
     }
 

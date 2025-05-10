@@ -10,10 +10,12 @@ class StateQuestionsViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var selectedState: String = "Berlin" {
         didSet {
-            self.selectedStateQuestions = self.filterQuestionsByState()
+            guard let selectedStateKey = germanStates[selectedState] else { return }
+            self.selectedStateQuestions = self.filterQuestions(state: selectedStateKey,
+                                                               questions: self.allStateQuestions)
         }
     }
-    private var stateQuestions: [Question] = []
+    private var allStateQuestions: [Question] = []
     private let germanStates: [String: String] = [
         "Brandenburg": "BB",
         "Berlin": "BE",
@@ -33,13 +35,16 @@ class StateQuestionsViewModel: ObservableObject {
         "Thuringia": "TH"
     ]
     private let settingsService: SettingsServiceProtocol
+    private let questionService: QuestionServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        settingsService: SettingsServiceProtocol = SettingsService()
+        settingsService: SettingsServiceProtocol = SettingsService(),
+        questionService: QuestionServiceProtocol = QuestionsService()
     ) {
         self.stateNames = germanStates.keys.sorted()
         self.selectedState = AppSettings.default.defaultState
+        self.questionService = questionService
         self.settingsService = settingsService
         settingsService.loadSettings()
             .receive(on: DispatchQueue.main)
@@ -51,15 +56,14 @@ class StateQuestionsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func filterQuestionsByState() -> [Question] {
-        guard let selectedStateKey = germanStates[selectedState] else { return [] }
-        let stateSpecificQuestions = stateQuestions.filter { $0.num.starts(with: selectedStateKey ) }
+    func filterQuestions(state: String, questions: [Question]) -> [Question] {
+        let stateSpecificQuestions = questions.filter { $0.num.starts(with: state ) }
         return stateSpecificQuestions
     }
 
     func getQuestionsFromDisk() {
         isLoading = true
-        self.getQuestionsFromDiskWithPublisher()
+        self.questionService.getQuestionsFromDiskWithPublisher()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
@@ -68,37 +72,12 @@ class StateQuestionsViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] questionList in
                 guard let self = self else { return }
-                self.selectedStateQuestions = questionList
+                self.allStateQuestions = questionList
+                guard let selectedStateKey = germanStates[selectedState] else { return }
+                self.selectedStateQuestions = self.filterQuestions(state: selectedStateKey,
+                                                                          questions: questionList)
                 self.isLoading = false
             }
             .store(in: &cancellables)
-    }
-
-    func getQuestionsFromDiskWithPublisher() -> AnyPublisher<[Question], Error> {
-        Future<[Question], Error> { [weak self] promise in
-            Task {
-                
-                guard let self = self else { return }
-                
-                do {
-                    let nsdata = NSData(contentsOfFile: Bundle.main.path(forResource: "question", ofType: "json")!)
-                    let data = Data(nsdata!)
-                    let questionList = try JSONDecoder().decode([Question].self, from: data)
-                    guard questionList.count > 300 else {
-                        self.errorMessage = "No State Questions found"
-                        return
-                    }
-                    self.stateQuestions = Array(questionList[300...])
-                    let selectedStateQuestions = self.filterQuestionsByState()
-                    
-                    promise(.success(selectedStateQuestions))
-                } catch {
-                    //                self.errorMessage = "Could not load questions"
-                    //                self.isLoading = false
-                    promise(.failure(error))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
     }
 }

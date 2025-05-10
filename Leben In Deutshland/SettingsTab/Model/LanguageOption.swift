@@ -22,7 +22,7 @@ struct LanguageOption: Codable, Identifiable, Hashable, Comparable {
         LanguageOption(code: "fr", name: "French"),
         LanguageOption(code: "tr", name: "Turkish"),
         LanguageOption(code: "ar", name: "Arabic"),
-        LanguageOption(code: "uk", name: "Ukraine")
+        LanguageOption(code: "uk", name: "Ukrainian")
     ]
     
     static func < (lhs: LanguageOption, rhs: LanguageOption) -> Bool {
