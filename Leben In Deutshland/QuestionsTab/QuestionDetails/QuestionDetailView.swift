@@ -91,36 +91,44 @@ struct QuestionDetailView: View {
                     viewModel.saveQuestion(viewModel.allQuestions[viewModel.currentIndex])
                     viewModel.isSaved = viewModel.isQuestionSaved(viewModel.allQuestions[viewModel.currentIndex])
                 }) {
-                    Text(isSaved ? "Unmark" : "Mark")
+                    Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                        .font(.title)
                 }
-                .buttonStyle(HighlightButtonStyle())
                 
                 Spacer()
                 
                 Button(action: { viewModel.translateQuestion() }) {
                     Text("Translate")
                 }
-                .buttonStyle(HighlightButtonStyle())
             }
 
             HStack {
-                Button("Previous") {
+                Button(action: {
                     if currentIndex > 0 {
                         let previousIndex = viewModel.currentIndex - 1
                         viewModel.loadQuestion(at: previousIndex)
                     }
+                }) {
+                    Text("Previous")
                 }
+                .buttonStyle(HighlightButtonStyle())
                 .disabled(currentIndex == 0)
-                
+                .bold()
+
                 Spacer()
                 
-                Button("Next") {
+                Button(action: {
                     if viewModel.currentIndex < viewModel.allQuestions.count - 1 {
                         let nextIndex = viewModel.currentIndex + 1
                         viewModel.loadQuestion(at: nextIndex)
                     }
+                }) {
+                    Text("  Next  ")
                 }
+                .buttonStyle(HighlightButtonStyle())
                 .disabled(viewModel.currentIndex == viewModel.allQuestions.count - 1)
+                .bold()
+
             }
             
             ScrollViewReader { proxy in
@@ -205,6 +213,24 @@ struct QuestionDetailView: View {
             // Fetch questions only when the view appears
             viewModel.loadQuestion(at: currentIndex)
         }
+        .gesture(
+                    DragGesture()
+                        .onEnded { value in
+                            if value.translation.width < -50 {
+                                // Swipe Left – Next Question
+                                    if viewModel.currentIndex < viewModel.allQuestions.count - 1 {
+                                        let nextIndex = viewModel.currentIndex + 1
+                                        viewModel.loadQuestion(at: nextIndex)
+                                    }
+                            } else if value.translation.width > 50 {
+                                // Swipe Right – Previous Question
+                                if currentIndex > 0 {
+                                    let previousIndex = viewModel.currentIndex - 1
+                                    viewModel.loadQuestion(at: previousIndex)
+                                }
+                            }
+                        }
+                )
     }
 
     private func getBackgroundColorForQuestions(index: Int) -> Color {
