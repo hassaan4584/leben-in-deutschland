@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TabbarView: View {
+    @ObservedObject var viewModel = TabbarViewModel()
     var body: some View {
-        TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
+        TabView(selection: $viewModel.selectedTabIndex) {
             QuestionsListView()
                 .tabItem {
                     TabIconView(title: "All Questions",

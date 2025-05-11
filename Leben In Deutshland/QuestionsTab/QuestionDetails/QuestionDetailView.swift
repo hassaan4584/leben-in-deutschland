@@ -49,8 +49,7 @@ struct QuestionDetailView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         let optionViewModelA = OptionViewModel(translatedQuestion: translatedQuestion.a,
                                                               isSelected: selectedAnswer == "a",
-                                                              isCorrect: isAnswerCorrect,
-                                                               correctAnswer: correctAnswer)
+                                                              isCorrect: isAnswerCorrect)
                         OptionView(viewModel: optionViewModelA)
                         .onTapGesture {
                             viewModel.handleAnswerSelection(answer: "a")
@@ -58,8 +57,7 @@ struct QuestionDetailView: View {
                         
                         let optionViewModelB = OptionViewModel(translatedQuestion: translatedQuestion.b,
                                                               isSelected: selectedAnswer == "b",
-                                                              isCorrect: isAnswerCorrect,
-                                                              correctAnswer: correctAnswer)
+                                                              isCorrect: isAnswerCorrect)
                         OptionView(viewModel: optionViewModelB)
                         .onTapGesture {
                             viewModel.handleAnswerSelection(answer: "b")
@@ -67,8 +65,7 @@ struct QuestionDetailView: View {
                         
                         let optionViewModelC = OptionViewModel(translatedQuestion: translatedQuestion.c,
                                                               isSelected: selectedAnswer == "c",
-                                                              isCorrect: isAnswerCorrect,
-                                                              correctAnswer: correctAnswer)
+                                                              isCorrect: isAnswerCorrect)
                         OptionView(viewModel: optionViewModelC)
                         .onTapGesture {
                             viewModel.handleAnswerSelection(answer: "c")
@@ -76,8 +73,7 @@ struct QuestionDetailView: View {
                         
                         let optionViewModelD = OptionViewModel(translatedQuestion: translatedQuestion.d,
                                                               isSelected: selectedAnswer == "d",
-                                                              isCorrect: isAnswerCorrect,
-                                                              correctAnswer: correctAnswer)
+                                                              isCorrect: isAnswerCorrect)
                         OptionView(viewModel: optionViewModelD)
                         .onTapGesture {
                             viewModel.handleAnswerSelection(answer: "d")

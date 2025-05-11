@@ -7,18 +7,36 @@
 
 import SwiftUI
 
+enum AppearanceSetting: String, CaseIterable, Identifiable {
+    case system
+    case light
+    case dark
+    
+    var id: String { self.rawValue }
+    
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        switch self {
+        case .system: return .unspecified
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+}
+
+
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
+    @State private var isShareSheetPresented = false
+    @AppStorage("appearanceSetting") private var appearanceSetting: AppearanceSetting = .system
 
+    
     var body: some View {
         NavigationStack {
             Form {
                 languageSettingsSection
-//                defaultStateSection
-//                appearanceSection
-//                notificationsSection
+                                appearanceSection
+                //                notificationsSection
                 aboutInfoSection
-//                appInfoSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -48,53 +66,34 @@ struct SettingsView: View {
             Text("'Primary Language' is used to show questions in the questions screen. \n 'Secondary Language' is used to translate questions in the details screen")
         }
     }
-
-    private var defaultStateSection: some View {
-//                Section(header: Text("Choose Default State")) {
-//                    Picker("Choose default State", selection: $viewModel.defaultState) {
-//                        ForEach(viewModel.stateNames, id: \.self) { stateName in
-//                            Text(stateName)
-//                        }
-//                    }
-//                }
-        
-        Section {
-            Picker("Choose default State", selection: $viewModel.defaultState) {
-                ForEach(viewModel.stateNames, id: \.self) { stateName in
-                    Text(stateName)
+    
+        private var appearanceSection: some View {
+            Section {
+                Picker("Theme", selection: $appearanceSetting) {
+                    Text("System").tag(AppearanceSetting.system)
+                    Text("Light").tag(AppearanceSetting.light)
+                    Text("Dark").tag(AppearanceSetting.dark)
                 }
+                .onChange(of: appearanceSetting, initial: true) { _, newValue in
+                    setAppearance(newValue)
+                }
+            } header: {
+                Text("Appearance")
+            } footer: {
+                Text("Configure Dark Mode for the app")
             }
         }
-        header: {
-            Text("Choose Default State")
-        } footer: {
-            Text("The state for which questions would be shown in the 'State Questions' tab")
-        }
-    }
-
-//    private var appearanceSection: some View {
-//        Section(header: Text("Appearance")) {
-//            Toggle("Dark Mode", isOn: $viewModel.settings.darkModeEnabled)
-//        }
-
-//    }
-    
-//    private var notificationsSection: some View {
-//        Section(header: Text("Notifications")) {
-//            Toggle("Enable Notifications", isOn: $viewModel.settings.notificationsEnabled)
-//        }
-//    }
     
     private var aboutInfoSection: some View {
         Section {
-//        Section(header: Text("About")) {
-            Button(action: {
-                // Action to share app
-            }) {
+            ShareLink(
+                item: URL(string: "https://apps.apple.com/app/id6745673617")!,
+                message: Text("Here is an app for the preparation of Einbürgerungstests!"),
+                preview: SharePreview("Leben In Deutschland")
+            ) {
                 Label("Share App", systemImage: "square.and.arrow.up")
                     .foregroundStyle(Color.primary)
             }
-            
             Button(action: {
                 viewModel.rateApp()
             }) {
@@ -109,18 +108,6 @@ struct SettingsView: View {
             )
         }
     }
-            
-        private var appInfoSection: some View {
-            Section(header: Text("App")) {
-            HStack {
-                Text("Version")
-                Spacer()
-                Text("\(viewModel.appVersion) (\(viewModel.buildNumber))")
-                    .foregroundColor(.secondary)
-            }
-            
-        }
-    }
 
     private var loadingOverlay: some View {
         Group {
@@ -129,6 +116,16 @@ struct SettingsView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
                     .scaleEffect(1.5)
             }
+        }
+    }
+    
+    private func setAppearance(_ setting: AppearanceSetting) {
+        // Get all connected scenes
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        
+        windowScene?.windows.forEach { window in
+            window.overrideUserInterfaceStyle = setting.userInterfaceStyle
         }
     }
 }
