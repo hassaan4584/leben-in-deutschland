@@ -91,7 +91,6 @@ class SettingsViewModel: ObservableObject {
                     self?.showAlert = true
                 }
             } receiveValue: { _ in
-                print("Settings Saved")
             }
             .store(in: &cancellables)
     }

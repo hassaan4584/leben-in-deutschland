@@ -27,7 +27,7 @@ class QuestionsService: QuestionServiceProtocol {
                         promise(.failure(StateSelectionError.noQuestionsAvailable))
                         return
                     }
-                    promise(.success(Array(questionList[300...])))
+                    promise(.success(questionList))
                 } catch {
                     promise(.failure(StateSelectionError.unableToReadQuestionsFile))
                 }

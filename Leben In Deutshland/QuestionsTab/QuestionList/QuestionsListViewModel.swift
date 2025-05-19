@@ -92,7 +92,7 @@ class QuestionsListViewModel: ObservableObject {
                     self?.isLoading = false
                 }
             } receiveValue: { questionList in
-                self.questions = questionList
+                self.questions = Array(questionList[0...299])
                 self.isLoading = false
             }
             .store(in: &cancellables)

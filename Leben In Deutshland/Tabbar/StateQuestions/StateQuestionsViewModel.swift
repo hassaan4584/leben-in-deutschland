@@ -83,7 +83,7 @@ class StateQuestionsViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] questionList in
                 guard let self = self else { return }
-                self.allStateQuestions = questionList
+                self.allStateQuestions = Array(questionList[300...])
                 guard let selectedStateKey = germanStates[selectedState] else { return }
                 self.selectedStateQuestions = self.filterQuestions(state: selectedStateKey,
                                                                           questions: questionList)
