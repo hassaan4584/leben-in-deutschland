@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +189,7 @@
 				};
 			};
 			buildConfigurationList = 129CD2B72D87232A0034166F /* Build configuration list for PBXProject "Leben In Deutschland" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -199,7 +200,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 129CD2BD2D87232A0034166F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

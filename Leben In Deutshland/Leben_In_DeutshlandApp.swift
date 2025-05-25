@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct Leben_In_DeutshlandApp: App {
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor(Color(.systemBackground))
+    }
     var body: some Scene {
         WindowGroup {
             TabbarView()
         }
     }
+}
+
+#Preview {
+    TabbarView()
 }

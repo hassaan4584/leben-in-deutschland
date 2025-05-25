@@ -11,6 +11,12 @@ struct TabbarView: View {
     @ObservedObject var viewModel = TabbarViewModel()
     var body: some View {
         TabView(selection: $viewModel.selectedTabIndex) {
+            HomeView()
+                .tabItem {
+                    TabIconView(title: "Home",
+                                imageName: "house.circle.fill")
+                }
+                .tag(0)
             QuestionsListView()
                 .tabItem {
                     TabIconView(title: "All Questions",
@@ -33,7 +39,10 @@ struct TabbarView: View {
             }
             .tag(5)
         }
-        .background(Color.gray.opacity(0.2))
+//        .background(Color(.systemGroupedBackground))
+//        .toolbarBackground(UIColor(Color(.systemBackground)), for: .tabBar) // Set custom color
+//        .toolbarBackground(Color(.systemBackground), for: .tabBar)
+        .toolbarBackground(Color(.red), for: .tabBar)
     }
 }
 
